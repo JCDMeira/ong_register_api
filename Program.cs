@@ -1,6 +1,12 @@
+using OngResgisterApi.Models;
+using RestaurantApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<DatabaseSettings>(
+    builder.Configuration.GetSection("OngDatabase"));
+builder.Services.AddTransient<OngsService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
