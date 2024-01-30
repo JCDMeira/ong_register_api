@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OngResgisterApi", "OngResgisterApi.csproj", "{6BC08A89-F1C3-4579-8643-E731CDD6827D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BC08A89-F1C3-4579-8643-E731CDD6827D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC08A89-F1C3-4579-8643-E731CDD6827D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC08A89-F1C3-4579-8643-E731CDD6827D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC08A89-F1C3-4579-8643-E731CDD6827D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF42AC2A-727E-4416-80E6-AFCAFF623B37}
+	EndGlobalSection
+EndGlobal
