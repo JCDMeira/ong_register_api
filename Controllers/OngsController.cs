@@ -26,6 +26,8 @@ namespace OngResgisterApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Ong newOng)
         {
+            var ong = await _ongsService.GetByNameAsync(newOng.Name);
+            if(ong != null) return BadRequest();
             await _ongsService.CreateAsync(newOng);
             return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
         }
@@ -34,7 +36,10 @@ namespace OngResgisterApi.Controllers
         public async Task<IActionResult> Update(string id, Ong updatedOng)
         {
             var ong = await _ongsService.GetAsync(id);
-            if(ong == null) return NotFound();
+            if (ong == null) return NotFound();
+
+            var existingOng = await _ongsService.GetByNameAsync(updatedOng.Name);
+            if (existingOng != null) return BadRequest();
 
             await _ongsService.UpdateAsync(id, updatedOng);
             return NoContent();

@@ -1,4 +1,6 @@
-﻿namespace OngResgisterApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OngResgisterApi.Models;
 
     public class Ong : MongoBaseEntity
     {
@@ -9,6 +11,7 @@
 
     public string Purpose { get; set; } = null!;
 
-    public string HowToAssist { get;  set; } = null!;
+    [MaxLength(10)]
+    public string[] HowToAssist { get;  set; } = null!;
 }
 
