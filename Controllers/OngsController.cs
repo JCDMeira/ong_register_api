@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngResgisterApi.Models;
+using OngResgisterApi.utils;
 using RestaurantApi.Services;
 
 namespace OngResgisterApi.Controllers
@@ -28,6 +29,8 @@ namespace OngResgisterApi.Controllers
         {
             var ong = await _ongsService.GetByNameAsync(newOng.Name);
             if(ong != null) return BadRequest();
+            if (newOng.ImageUrl == null || newOng.ImageUrl == "")
+                newOng.ImageUrl = Image.GetImageFallback();
             await _ongsService.CreateAsync(newOng);
             return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
         }
@@ -40,6 +43,9 @@ namespace OngResgisterApi.Controllers
 
             var existingOng = await _ongsService.GetByNameAsync(updatedOng.Name);
             if (existingOng != null) return BadRequest();
+
+            if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
+                updatedOng.ImageUrl = Image.GetImageFallback();
 
             await _ongsService.UpdateAsync(id, updatedOng);
             return NoContent();

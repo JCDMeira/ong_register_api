@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OngResgisterApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e873bda7209e8eef087b1b4eae703ba2cac80946")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d52e9d55f1955bd82e1a79dad8eaed8dc7ba82cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("OngResgisterApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OngResgisterApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
