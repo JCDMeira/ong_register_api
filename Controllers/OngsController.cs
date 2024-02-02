@@ -45,8 +45,9 @@ namespace OngResgisterApi.Controllers
             if (existingOng != null) return BadRequest();
 
             if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
-                updatedOng.ImageUrl = Image.GetImageFallback();
+                updatedOng.ImageUrl = ong.ImageUrl;
 
+            updatedOng.Id = ong.Id;
             await _ongsService.UpdateAsync(id, updatedOng);
             return NoContent();
         }
