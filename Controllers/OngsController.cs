@@ -31,6 +31,7 @@ namespace OngResgisterApi.Controllers
             if(ong != null) return BadRequest();
             if (newOng.ImageUrl == null || newOng.ImageUrl == "")
                 newOng.ImageUrl = Image.GetImageFallback();
+            if (!Uri.IsWellFormedUriString(newOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
             await _ongsService.CreateAsync(newOng);
             return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
         }
@@ -47,6 +48,7 @@ namespace OngResgisterApi.Controllers
             if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
                 updatedOng.ImageUrl = ong.ImageUrl;
 
+            if (!Uri.IsWellFormedUriString(updatedOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
             updatedOng.Id = ong.Id;
             await _ongsService.UpdateAsync(id, updatedOng);
             return NoContent();
