@@ -43,7 +43,7 @@ namespace OngResgisterApi.Controllers
             if (ong == null) return NotFound();
 
             var existingOng = await _ongsService.GetByNameAsync(updatedOng.Name);
-            if (existingOng != null) return BadRequest();
+            if (existingOng != null && existingOng.Id != id) return BadRequest();
 
             if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
                 updatedOng.ImageUrl = ong.ImageUrl;
