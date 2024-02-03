@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "PBUPdLxyi6LT4KnbhqG55ln7hS4ixKAOwUoK8kVrzehEtnG90QvrEaBVthgp02Q4AQPL1GVf97k4L8kPWhD9xg==",
+  "dgSpecHash": "uTph9M/RamWYR/8s+DeJXGijo66y0xk/gN9IJLQuU+2Edh9NfIqW83O5AGRE2cll0tCMOj3SPzLjAJ+HwaFccw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Jean\\source\\repos\\OngResgisterApi\\OngResgisterApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jean\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
+    "C:\\Users\\Jean\\.nuget\\packages\\canducci.pagination\\3.0.0\\canducci.pagination.3.0.0.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
+    "C:\\Users\\Jean\\.nuget\\packages\\jetbrains.annotations\\2022.3.1\\jetbrains.annotations.2022.3.1.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.0.0\\microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
@@ -27,6 +29,8 @@
     "C:\\Users\\Jean\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
+    "C:\\Users\\Jean\\.nuget\\packages\\x.pagedlist\\8.4.7\\x.pagedlist.8.4.7.nupkg.sha512",
+    "C:\\Users\\Jean\\.nuget\\packages\\x.pagedlist.mvc.core\\8.4.7\\x.pagedlist.mvc.core.8.4.7.nupkg.sha512",
     "C:\\Users\\Jean\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
   "logs": []

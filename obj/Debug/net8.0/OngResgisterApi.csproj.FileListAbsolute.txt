@@ -44,3 +44,7 @@ C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\refint\OngResgisterA
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgisterApi.pdb
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgisterApi.genruntimeconfig.cache
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\ref\OngResgisterApi.dll
+C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\Canducci.Pagination.dll
+C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\JetBrains.Annotations.dll
+C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.dll
+C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll

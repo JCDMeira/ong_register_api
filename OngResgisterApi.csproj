@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Canducci.Pagination" Version="3.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
 
 </Project>

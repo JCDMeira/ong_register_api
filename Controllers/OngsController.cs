@@ -2,6 +2,7 @@
 using OngResgisterApi.Models;
 using OngResgisterApi.utils;
 using RestaurantApi.Services;
+using X.PagedList;
 
 namespace OngResgisterApi.Controllers
 {
@@ -14,7 +15,15 @@ namespace OngResgisterApi.Controllers
         public OngsController(OngsService service) => _ongsService = service;
 
         [HttpGet]
-        public async Task<List<Ong>> Get() => await _ongsService.GetAsync();
+        public async Task<IActionResult> Get(int? page, int? count) {
+            int pageList = page ?? 1;
+            int pageCount = count ?? 20;
+
+            var result = await _ongsService.GetAsync();
+            var pagedResult = result.ToPagedList(pageList, pageCount);
+
+            return Ok(pagedResult);
+         }
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Ong>> Get(string id)
