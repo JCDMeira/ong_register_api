@@ -66,7 +66,95 @@ Sua aplicação deve ter:
 
 # Aprendizados <a name="id03"></a>
 
+Foi usado um pacote chamado `X.PagedList` para montar a paginação com parâmetros de page e count, sendo page a página que retorna e count a quantidade de itens por página.
+
+A rota específica já reconheceu o parâmetro ao ser passado para a função, mas é preciso tratar, já quu pode ser que não venha. Ou seja, é algo opcional.
+
+```c#
+using Microsoft.AspNetCore.Mvc;
+using OngResgisterApi.Models;
+using OngResgisterApi.utils;
+using RestaurantApi.Services;
+using X.PagedList;
+
+namespace OngResgisterApi.Controllers
+{
+    [Route("/api/ongs")]
+    [ApiController]
+    public class OngsController : Controller
+    {
+        private OngsService _ongsService;
+
+        public OngsController(OngsService service) => _ongsService = service;
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int? page, int? count) {
+            int pageList = page ?? 1;
+            int pageCount = count ?? 20;
+
+            var result = await _ongsService.GetAsync();
+            var pagedResult = result.ToPagedList(pageList, pageCount);
+
+            return Ok(pagedResult);
+         }
+
+        [HttpGet("{id:length(24)}")]
+        public async Task<ActionResult<Ong>> Get(string id)
+        {
+            var ong = await _ongsService.GetAsync(id);
+            if(ong == null) return NotFound();
+            return Ok(ong);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Ong newOng)
+        {
+            var ong = await _ongsService.GetByNameAsync(newOng.Name);
+            if(ong != null) return BadRequest();
+            if (newOng.ImageUrl == null || newOng.ImageUrl == "")
+                newOng.ImageUrl = Image.GetImageFallback();
+            if (!Uri.IsWellFormedUriString(newOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
+            await _ongsService.CreateAsync(newOng);
+            return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public async Task<IActionResult> Update(string id, Ong updatedOng)
+        {
+            var ong = await _ongsService.GetAsync(id);
+            if (ong == null) return NotFound();
+
+            var existingOng = await _ongsService.GetByNameAsync(updatedOng.Name);
+            if (existingOng != null && existingOng.Id != id) return BadRequest();
+
+            if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
+                updatedOng.ImageUrl = ong.ImageUrl;
+
+            if (!Uri.IsWellFormedUriString(updatedOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
+            updatedOng.Id = ong.Id;
+            await _ongsService.UpdateAsync(id, updatedOng);
+            return NoContent();
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var ong = await _ongsService.GetAsync(id);
+            if(ong == null) return NotFound();
+            await _ongsService.RemoveAsync(id);
+            return NoContent();
+        }
+    }
+}
+```
+
 ## Considerações
+
+Há mais formar de fazer paginação, nesse modelo se usa page size, que basicamente monta páginas e itens por página. Também há o modelo de page hash, que trabalha com ancoras after e before.
+
+Será interessante testar o modelo de page hash em alguma outra aplicação.
+
+Como uma melhoria desse projeto se buscará realizar a padronização do retorno de erro.
 
 # 🛠 Feito com <a name="id04"></a>
 
