@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngResgisterApi.Models;
 using OngResgisterApi.utils;
+using restaurant_api.Utils;
 using RestaurantApi.Services;
 using X.PagedList;
 
@@ -15,12 +16,27 @@ namespace OngResgisterApi.Controllers
         public OngsController(OngsService service) => _ongsService = service;
 
         [HttpGet]
-        public async Task<IActionResult> Get(int? page, int? count) {
+        public async Task<ActionResult<List<Ong>>> Get(
+            int? page, 
+            int? count, 
+            [FromQuery] string? name, 
+            [FromQuery] string? purpose,
+            [FromQuery] string? search
+            ) {
             int pageList = page ?? 1;
             int pageCount = count ?? 20;
 
             var result = await _ongsService.GetAsync();
-            var pagedResult = result.ToPagedList(pageList, pageCount);
+            var pagedResult = result
+                .Where(ong => 
+                EntintyFilters.HasSearchString(ong.Name,name) && 
+                EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
+                    (
+                    EntintyFilters.HasSearchString(ong.Name, search) ||
+                    EntintyFilters.HasSearchString(ong.Purpose, search)
+                    )
+                )
+                .ToPagedList(pageList, pageCount);
 
             return Ok(pagedResult);
          }
