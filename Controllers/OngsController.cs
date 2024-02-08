@@ -21,7 +21,8 @@ namespace OngResgisterApi.Controllers
             int? count, 
             [FromQuery] string? name, 
             [FromQuery] string? purpose,
-            [FromQuery] string? search
+            [FromQuery] string? search,
+            [FromQuery] string? how_to_assist
             ) {
             int pageList = page ?? 1;
             int pageCount = count ?? 20;
@@ -31,9 +32,11 @@ namespace OngResgisterApi.Controllers
                 .Where(ong => 
                 EntintyFilters.HasSearchString(ong.Name,name) && 
                 EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
+                ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, how_to_assist)) &&
                     (
                     EntintyFilters.HasSearchString(ong.Name, search) ||
-                    EntintyFilters.HasSearchString(ong.Purpose, search)
+                    EntintyFilters.HasSearchString(ong.Purpose, search) ||
+                    ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, search))
                     )
                 )
                 .ToPagedList(pageList, pageCount);
