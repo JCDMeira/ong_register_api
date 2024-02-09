@@ -227,6 +227,16 @@ No filtro se usou apenas um where para não aumentar a complexidade n das execus
                 )
 ```
 
+nota: Validar melhor como funcionaria migrar essa estrutura para uma arquitetura centrada usando DDD.
+
+- como ficaria a divisão das camadas?
+- como eu mudaria a estrutura de pastas e faria as camadas se comunicarem?
+- qual seria o papel do repositório nessa nova abordagem?
+- quais papeis são carregados pela camada de service?
+- controller só repassa a chamada ?
+- quem no final devolve o status?
+- como padronizo os retornos e tratamentos de erros?
+
 # 🛠 Feito com <a name="id04"></a>
 
 <br />
