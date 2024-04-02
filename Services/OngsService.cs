@@ -1,6 +1,7 @@
 ﻿using OngResgisterApi.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using OngResgisterApi.Infra;
 
 namespace RestaurantApi.Services;
 

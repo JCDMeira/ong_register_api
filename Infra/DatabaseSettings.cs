@@ -1,4 +1,4 @@
-﻿namespace OngResgisterApi.Models
+﻿namespace OngResgisterApi.Infra
 {
     public class DatabaseSettings
     {
