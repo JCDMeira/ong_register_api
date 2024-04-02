@@ -156,6 +156,87 @@ Será interessante testar o modelo de page hash em alguma outra aplicação.
 
 Como uma melhoria desse projeto se buscará realizar a padronização do retorno de erro.
 
+## Pontos de melhoria
+
+Foi adotado uma classe utilitária que permite buscar por texto dentro de uma string.
+
+```c#
+using System.Text.RegularExpressions;
+
+namespace restaurant_api.Utils
+{
+    public static class EntintyFilters
+    {
+        public static bool HasSearchString(string name, string? searchString)
+        {
+            if (searchString == null) return true;
+            var regex = new Regex($"{searchString}", RegexOptions.IgnoreCase);
+            return regex.IsMatch(name);
+        }
+    }
+}
+
+```
+
+Então se mudou o getAll da aplicação para trabalhar com um retorno do tipo `Task<ActionResult<List<Ong>>>` e usando conjuntos de parâmetros opcionais do tipo `FromQuery`, para identificar que são providos das querys. E agora o retorno passa pelo `OK()` para respeitar o tipo `ActionResult`.
+
+```c#
+
+        [HttpGet]
+        public async Task<ActionResult<List<Ong>>> Get(
+            int? page,
+            int? count,
+            [FromQuery] string? name,
+            [FromQuery] string? purpose,
+            [FromQuery] string? search,
+            [FromQuery] string? how_to_assist
+            ) {
+            int pageList = page ?? 1;
+            int pageCount = count ?? 20;
+
+            var result = await _ongsService.GetAsync();
+            var pagedResult = result
+                .Where(ong =>
+                EntintyFilters.HasSearchString(ong.Name,name) &&
+                EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
+                ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, how_to_assist)) &&
+                    (
+                    EntintyFilters.HasSearchString(ong.Name, search) ||
+                    EntintyFilters.HasSearchString(ong.Purpose, search) ||
+                    ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, search))
+                    )
+                )
+                .ToPagedList(pageList, pageCount);
+
+            return Ok(pagedResult);
+         }
+```
+
+No filtro se usou apenas um where para não aumentar a complexidade n das execusões. Pra isso se usou um conjunto de funções que retornam boleanos para validar uma condição de filtro do where. Para filtros de campo específico com o && (e) e dentro da condição avançada se faz o || (ou) para que se busque a pertinencia para qualquer um dos campos.
+
+```c#
+  .Where(ong =>
+                EntintyFilters.HasSearchString(ong.Name,name) &&
+                EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
+                ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, how_to_assist)) &&
+                    (
+                    EntintyFilters.HasSearchString(ong.Name, search) ||
+                    EntintyFilters.HasSearchString(ong.Purpose, search) ||
+                    ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, search))
+                    )
+                )
+```
+
+nota: Validar melhor como funcionaria migrar essa estrutura para uma arquitetura centrada usando DDD.
+
+- como ficaria a divisão das camadas?
+- como eu mudaria a estrutura de pastas e faria as camadas se comunicarem?
+- qual seria o papel do repositório nessa nova abordagem?
+- quais papeis são carregados pela camada de service?
+- controller só repassa a chamada ?
+- quem no final devolve o status?
+- como padronizo os retornos e tratamentos de erros?
+
 # 🛠 Feito com <a name="id04"></a>
 
 <br />
