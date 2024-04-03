@@ -1,42 +1,33 @@
 ﻿using OngResgisterApi.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using OngResgisterApi.Infra;
+using API.Infra;
 
-namespace RestaurantApi.Services;
+namespace OngApi.Services;
 
 public class OngsService
 {
-    private readonly IMongoCollection<Ong> _ongsCollection;
+    private readonly IMongoRepository<Ong> _ong;
 
     public OngsService(
-        IOptions<DatabaseSettings> ongsDatabaseSettings)
+       IMongoRepository<Ong> ong)
     {
-        var mongoClient = new MongoClient(
-            ongsDatabaseSettings.Value.ConnectionString);
-
-        var mongoDatabase = mongoClient.GetDatabase(
-            ongsDatabaseSettings.Value.DatabaseName);
-
-        _ongsCollection = mongoDatabase.GetCollection<Ong>(
-            ongsDatabaseSettings.Value.CollectionName);
+        _ong = ong;
     }
 
     public async Task<List<Ong>> GetAsync() =>
-        await _ongsCollection.Find(_ => true).ToListAsync();
+        await _ong.Get();
 
     public async Task<Ong?> GetAsync(string id) =>
-        await _ongsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        await _ong.Get(id);
 
     public async Task<Ong?> GetByNameAsync(string name) =>
-     await _ongsCollection.Find(x => x.Name == name).FirstOrDefaultAsync();
+     await _ong.GetByName(name);
 
     public async Task CreateAsync(Ong newOng) =>
-        await _ongsCollection.InsertOneAsync(newOng);
+        await _ong.Create(newOng);
 
     public async Task UpdateAsync(string id, Ong updatedOng) =>
-        await _ongsCollection.ReplaceOneAsync(x => x.Id == id, updatedOng);
+        await _ong.Update(id, updatedOng);
 
     public async Task RemoveAsync(string id) =>
-        await _ongsCollection.DeleteOneAsync(x => x.Id == id);
+        await _ong.Remove(id);
 }

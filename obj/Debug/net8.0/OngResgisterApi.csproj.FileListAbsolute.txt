@@ -38,7 +38,6 @@ C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\staticwebassets\msbu
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.OngResgisterApi.props
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\scopedcss\bundle\OngResgisterApi.styles.css
-C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgisterApi.csproj.CopyComplete
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgisterApi.dll
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\refint\OngResgisterApi.dll
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgisterApi.pdb
@@ -48,3 +47,4 @@ C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\Canducci.Pagination.
 C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\JetBrains.Annotations.dll
 C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.dll
 C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
+C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgi.97B4EFB5.Up2Date

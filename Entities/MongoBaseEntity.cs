@@ -9,6 +9,8 @@ public class MongoBaseEntity
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    public string Name { get; set; } = null!;
+
     public DateTime? CreatedTime { get; } = DateTime.Now!;
 
     public DateTime? UpdatedTime { get; set; } = DateTime.Now!;
