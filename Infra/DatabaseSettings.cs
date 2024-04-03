@@ -14,7 +14,7 @@
     {
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
-        public string CollectionName { get; set; }
+        string CollectionName { get; set; }
 
     }
 }

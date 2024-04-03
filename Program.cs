@@ -10,13 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddTransient<OngsService>();
 
 #region [Database]
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
+//builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("OngDatabase"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 #endregion
 
 #region [DI]
 builder.Services.AddSingleton(typeof(IMongoRepository<>), typeof(MongoRepository<>));
-builder.Services.AddTransient<OngsService>();
+builder.Services.AddSingleton<OngsService>();
 #endregion
 
 
