@@ -26,22 +26,8 @@ namespace OngResgisterApi.Controllers
             ) {
             int pageList = page ?? 1;
             int pageCount = count ?? 20;
-
-            var result = await _ongsService.GetAsync();
-            var pagedResult = result
-                .Where(ong => 
-                EntintyFilters.HasSearchString(ong.Name,name) && 
-                EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
-                ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, how_to_assist)) &&
-                    (
-                    EntintyFilters.HasSearchString(ong.Name, search) ||
-                    EntintyFilters.HasSearchString(ong.Purpose, search) ||
-                    ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, search))
-                    )
-                )
-                .ToPagedList(pageList, pageCount);
-
-            return Ok(pagedResult);
+            var result = await _ongsService.GetAsync(pageList, pageCount,name,purpose,search,how_to_assist);
+            return Ok(result);
          }
 
         [HttpGet("{id:length(24)}")]

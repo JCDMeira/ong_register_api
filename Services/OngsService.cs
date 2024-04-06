@@ -1,5 +1,8 @@
 ﻿using OngResgisterApi.Models;
 using API.Infra;
+using restaurant_api.Utils;
+using X.PagedList;
+using Microsoft.AspNetCore.Mvc;
 
 namespace OngApi.Services;
 
@@ -13,8 +16,25 @@ public class OngsService
         _ong = ong;
     }
 
-    public async Task<List<Ong>> GetAsync() =>
-        await _ong.Get();
+    public async Task<IPagedList<Ong>> GetAsync(int page, int count, string? name,
+             string? purpose,
+            string? search,
+             string? how_to_assist) {
+        var result = await _ong.Get();
+        var pagedResult = result
+        .Where(ong =>
+                   EntintyFilters.HasSearchString(ong.Name, name) &&
+                   EntintyFilters.HasSearchString(ong.Purpose, purpose) &&
+                   ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, how_to_assist)) &&
+                       (
+                       EntintyFilters.HasSearchString(ong.Name, search) ||
+                       EntintyFilters.HasSearchString(ong.Purpose, search) ||
+                       ong.HowToAssist.Any(s => EntintyFilters.HasSearchString(s, search))
+                       )
+                   )
+                   .ToPagedList(page,count);
+        return pagedResult;
+    }
 
     public async Task<Ong?> GetAsync(string id) =>
         await _ong.Get(id);
