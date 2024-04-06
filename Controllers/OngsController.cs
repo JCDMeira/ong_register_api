@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngResgisterApi.Models;
-using OngResgisterApi.utils;
-using restaurant_api.Utils;
 using OngApi.Services;
-using X.PagedList;
+using System.Net;
 
 namespace OngResgisterApi.Controllers
 {
@@ -33,48 +31,59 @@ namespace OngResgisterApi.Controllers
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Ong>> Get(string id)
         {
-            var ong = await _ongsService.GetAsync(id);
-            if(ong == null) return NotFound();
-            return Ok(ong);
+            try
+            {
+                var ong = await _ongsService.GetAsync(id);
+                return Ok(ong);
+            }
+            catch (WebException ex)
+            {
+                return NotFound(new { message = $"{ex.Message}", status = "404", type = "NotFound", success = false });
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(Ong newOng)
         {
-            var ong = await _ongsService.GetByNameAsync(newOng.Name);
-            if(ong != null) return BadRequest();
-            if (newOng.ImageUrl == null || newOng.ImageUrl == "")
-                newOng.ImageUrl = Image.GetImageFallback();
-            if (!Uri.IsWellFormedUriString(newOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
+            try
+            {
             await _ongsService.CreateAsync(newOng);
             return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
+            }
+            catch (ArgumentException ex)
+            {
+               return BadRequest(new { message = $"{ex.Message}", status= "400", type= "BadRequest", success= false });
+            }
         }
 
         [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, Ong updatedOng)
         {
-            var ong = await _ongsService.GetAsync(id);
-            if (ong == null) return NotFound();
-
-            var existingOng = await _ongsService.GetByNameAsync(updatedOng.Name);
-            if (existingOng != null && existingOng.Id != id) return BadRequest();
-
-            if (updatedOng.ImageUrl == null || updatedOng.ImageUrl == "")
-                updatedOng.ImageUrl = ong.ImageUrl;
-
-            if (!Uri.IsWellFormedUriString(updatedOng.ImageUrl, UriKind.RelativeOrAbsolute)) return BadRequest();
-            updatedOng.Id = ong.Id;
+            try
+            {
             await _ongsService.UpdateAsync(id, updatedOng);
             return NoContent();
+            }
+            catch (WebException ex) { 
+                return NotFound(new { message = $"{ex.Message}", status = "404", type = "NotFound", success = false });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = $"{ex.Message}", status = "400", type = "BadRequest", success = false });
+            }
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var ong = await _ongsService.GetAsync(id);
-            if(ong == null) return NotFound();
+            try
+            {
             await _ongsService.RemoveAsync(id);
-            return NoContent();
+                return NoContent();
+            }catch (WebException ex)
+            {
+                return NotFound(new { message = $"{ex.Message}", status = "404", type = "NotFound", success = false });
+            }
         }
     }
 }
