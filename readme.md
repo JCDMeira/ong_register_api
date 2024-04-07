@@ -237,6 +237,39 @@ nota: Validar melhor como funcionaria migrar essa estrutura para uma arquitetura
 - quem no final devolve o status?
 - como padronizo os retornos e tratamentos de erros?
 
+## Consolidação de conhecimento - primeiro refactor
+
+- como ficaria a divisão das camadas?
+
+  R: Podem existir camadas distintas e maneiras distintas de construuir o projeto, mesmo pensando no mesmo modelo arqitetural.
+  No caso, englobo as entidades como a parte relativa as minhas entidades de dominio, absorvendo algumas regras, ainda poderia ter a classe de DomainExceptions e os assertConcerns para validar regras específicas a camada de domínio.
+  Então temos as controllers que nesse modelo apenas controlam o fluxo, as services que de fato contém as validações e pequenas regras e os repositories que fazem o acesso ao banco de dados.
+
+- como eu mudaria a estrutura de pastas e faria as camadas se comunicarem?
+
+  R: no caso teve que adicionar os repositories e mudar de model para entities, para englobar mais que os modelos.
+  Há ainda a camada intermediária de Mappers, para desacoplar a entidade ao que chega de informação nas rotas.
+
+- qual seria o papel do repositório nessa nova abordagem?
+
+  R: toda a comunicação com os bancos são feitos através dos repositórios, que no geral respeitam uma interface genérica, favorecendo a substitution of liskov.
+
+- quais papeis são carregados pela camada de service?
+
+  R: o serviço fará a chamada para o repository, além de manipular os dados obtidos. Também faz o devido controle das informações passadas para o reposittory se for necessário algum tratamento de dados de entrada.
+
+- controller só repassa a chamada ?
+
+  R: de certa forma ela controla o fluxo e isso envolve delegar o ato de chamar dados para a repository, mas também faz a gestão desse retorno, para indicar se isso foi um sucesso ou falha.
+
+- quem no final devolve o status?
+
+  R: a controller que acaba por devolver o status e a response, mas isso não é total responsabilidade dela, pode haver o eestouro de erros em camadas mais abaixo. Como em service, em geral é bom cada camada tratar o erro e devolver pra camada acima, mas nesse projeto ainda se adota algo bem simples em que a controller mantém os try-catchs.
+
+- como padronizo os retornos e tratamentos de erros?
+
+  R: é possível ter uma classe modularizadora ou mesmo algum middleware. Nesse caso ainda não se adotou um padrão para todos os possíveis cenários. Como um passo a mais se deseja padronizar todos os retornos
+
 # 🛠 Feito com <a name="id04"></a>
 
 <br />
