@@ -2,6 +2,8 @@ using API.Infra;
 using Microsoft.Extensions.Options;
 using OngResgisterApi.Infra;
 using OngApi.Services;
+using API.Mappers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,9 @@ builder.Services.AddSingleton(typeof(IMongoRepository<>), typeof(MongoRepository
 builder.Services.AddSingleton<OngsService>();
 #endregion
 
+#region [AutoMapper]
+builder.Services.AddAutoMapper(typeof(EntityToViewModelMapping), typeof(ViewModelToEntityMapping));
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -2,6 +2,7 @@
 using OngResgisterApi.Models;
 using OngApi.Services;
 using System.Net;
+using OngResgisterApi.Entities.ViewModels;
 
 namespace OngResgisterApi.Controllers
 {
@@ -43,12 +44,12 @@ namespace OngResgisterApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Ong newOng)
+        public async Task<IActionResult> Post(OngViewlModel newOng)
         {
             try
             {
-            await _ongsService.CreateAsync(newOng);
-            return CreatedAtAction(nameof(Get), new {id= newOng.Id}, newOng);
+            var ong = await _ongsService.CreateAsync(newOng);
+            return CreatedAtAction(nameof(Get), new {id= ong.Id}, ong);
             }
             catch (ArgumentException ex)
             {
@@ -57,7 +58,7 @@ namespace OngResgisterApi.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Ong updatedOng)
+        public async Task<IActionResult> Update(string id, OngViewlModel updatedOng)
         {
             try
             {

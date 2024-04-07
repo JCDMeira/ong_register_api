@@ -48,3 +48,4 @@ C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\JetBrains.Annotation
 C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.dll
 C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
 C:\Users\Jean\source\repos\OngResgisterApi\obj\Debug\net8.0\OngResgi.97B4EFB5.Up2Date
+C:\Users\Jean\source\repos\OngResgisterApi\bin\Debug\net8.0\AutoMapper.dll

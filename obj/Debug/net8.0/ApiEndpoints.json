@@ -60,7 +60,7 @@
     "Parameters": [
       {
         "Name": "newOng",
-        "Type": "OngResgisterApi.Models.Ong",
+        "Type": "OngResgisterApi.Entities.ViewModels.OngViewlModel",
         "IsRequired": true
       }
     ],
@@ -107,7 +107,7 @@
       },
       {
         "Name": "updatedOng",
-        "Type": "OngResgisterApi.Models.Ong",
+        "Type": "OngResgisterApi.Entities.ViewModels.OngViewlModel",
         "IsRequired": true
       }
     ],
